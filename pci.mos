@@ -1,0 +1,24 @@
+l+mmso $temp_pci.log
+
+l echo 
+l echo ============================
+l echo EUtranCellFDD'\t'cellId'\t'PCI
+l echo ============================
+
+ma grupo ^eutrancellfdd=.*
+for $item in grupo
+	get $item EUtranCellFDDId > $celfdd
+	get $item ^cellid$ > $celid
+	get $item physicalLayerCellIdGroup > $p1
+	get $item physicalLayerSubCellId > $p2
+	$p3 = 3 * $p1
+	$pci = $p3 + $p2
+	l echo $celfdd'\t'$celid'\t'$pci
+done
+
+l echo ============================
+
+mr grupo
+unset all
+
+l-
